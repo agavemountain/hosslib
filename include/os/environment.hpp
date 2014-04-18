@@ -12,7 +12,7 @@ namespace os {
 //! This class wraps the code necessary to get and set environment
 //! variables in a cross-platform friendly way, taking into consideration
 //! CERT's Secure Programming best practices.  The design of the
-//! class interface borrows heavily from Python, and leverages
+//! class interface borrows from Python, and leverages
 //! operator overloading to make it easier to use.
 //!
 //! CERT NOTES:
@@ -25,8 +25,10 @@ namespace os {
 //! \todo set IFS environment variable.
 //!
 //! \code
-//!   env["MYVAR"]= "hello"
-//!   env["PATH"] = env["PATH"] + ":/silly"
+//!   Environment env;
+//!   cout << env.home_path();
+//!   env.set("HELLO", "WORLD");
+//!   cout << env["HELLO"] << " should equal: " << env.get("HELLO") << endl;
 //! \endcode
 //!
 class Environment {

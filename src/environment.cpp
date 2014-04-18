@@ -1,31 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <pwd.h>
+#include <unistd.h>
 #include "environment.hpp"
 
 extern char **Environmentiron;
 
+    
 //! Apple does not have a clearenv method.  This is the implementation.
 //! FreeBSD might be the same...
 #ifdef __APPLE__
-int clearenv(void)
-{
-    extern char **environ;
-    char **pe;
-    char *n;
-    
-    for(pe = environ; pe && *pe; pe++) {
-        n = strchr(*pe, '=');
-        if(n) {
-            n = strndup(n, (n - *pe));
-        } else {
-            n = *pe;
+    int clearenv(void)
+    {
+        extern char **environ;
+        char **pe;
+        char *n;
+        
+        for(pe = environ; pe && *pe; pe++) {
+            n = strchr(*pe, '=');
+            if(n) {
+                n = strndup(n, (n - *pe));
+            } else {
+                n = *pe;
+            }
+            unsetenv(n);
+            if(n != *pe)
+                free(n);
         }
-        unsetenv(n);
-        if(n != *pe)
-            free(n);
-        }
-    return 0;
-}
+        return 0;
+    }
 #endif
 
 namespace hoss {
@@ -77,31 +80,23 @@ bool Environment::clearAll() {
 }
 
 std::string Environment::home_path() {
-	// Linux
-	return get("HOME");
-
-#ifdef __APPLE__
-    #ifdef TARGET_OS_IPHONE
-         // iOS
-    #elif TARGET_IPHONE_SIMULATOR
-        // iOS Simulator
-    #elif TARGET_OS_MAC
-        // Other kinds of Mac OS
-    #else
-        // Unsupported platform
-    #endif
-#endif
+    // Something as simple as resolving a user's home directory can be
+    // a little complicated; the HOME evironment may or may not be defined, such
+    // as is the case for a GUI application on OS X.  This works on Linux,
+    // and OS X:
+    const char *pHome = getenv("HOME");
+    
+    // If HOME is not defined, check UID.
+    if (!pHome) {
+        struct passwd* pwd = getpwuid(getuid());
+        if (pwd)
+            pHome = pwd->pw_dir;
+    }
+    
+    return std::string(pHome);
+    
 }
 
-//std::vector<std::string> Environment::getAll() {
-//	std::vector<std::string> result;
-//	for (int i=0; *Environmentiron[i]; i++) {
-//		std::string tmp = Environmentiron[i];
-//		printf("tmp = %s\n", tmp.c_str());
-//		result.push_back(tmp);
-//	}
-//	return result;
-//}
 
 }
 }
