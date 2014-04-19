@@ -227,30 +227,4 @@ private:
 }
 }
 
-/* minicom.cpp
-
-int main(int argc, char* argv[])
-{
-        boost::asio::io_service io_service;
-        // define an instance of the main class of this program
-        minicom_client c(io_service, boost::lexical_cast<unsigned int>(argv[1]), argv[2]);
-        // run the IO service as a separate thread, so the main thread can block on standard input
-        boost::thread t(boost::bind(&boost::asio::io_service::run, &io_service));
-        while (c.active()) // check the internal state of the connection to make sure it's still running
-        {
-            char ch;
-            cin.get(ch); // blocking wait for standard input
-            if (ch == 3) // ctrl-C to end program
-                break;
-            c.write(ch);
-        }
-        c.close(); // close the minicom client connection
-        t.join(); // wait for the IO service thread to close
-    return 0;
-}
-
-*/
-
-
-
 #endif
