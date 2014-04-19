@@ -62,26 +62,63 @@ public:
     close();
   }
 
+  //! Write a string to the serial device.
+  //!
+  //! @param a_str    string to write
+  //!
+  void writeString(std::string a_str)
+  {
+    boost::asio::write(m_serial_port,boost::asio::buffer(a_str.c_str(),a_str.size()));
+  }
+
+  //! Read until a new line character is received from a serial device.
+  //! This function blocks until a line is received from the serial device.
+  std::string readString()
+  {
+    char c;
+    std::string result;
+    for(;;)
+      {
+        boost::asio::read(m_serial_port,boost::asio::buffer(&c,1));
+        std::cout << std::flush;
+        switch(c)
+          {
+          //case '\r':
+          //    break;
+          case '>':
+            result+=c;
+            return result;
+            break;
+          case '\n':
+            return result;
+          default:
+            result+=c;
+          }
+      }
+  }
+
   //! Close the ASIO socket and terminate outstanding I/O requests.
   void stop()
   {
     m_serial_port.close();
   }
 
-    bool isStopped() const {
-        return !m_serial_port.is_open();
-    }
-    
-    void handle_write() {
-        if (!m_serial_port.is_open()) return;
-        
-    }
-    
+  bool isStopped() const
+  {
+    return !m_serial_port.is_open();
+  }
+
+  void handle_write()
+  {
+    if (!m_serial_port.is_open()) return;
+
+  }
+
   //! Write a character
   //! @param msg  character to write
   void write(const char a_msg)
   {
-      m_io_service.post(boost::bind(&SerialPort::do_write, this, a_msg));
+    m_io_service.post(boost::bind(&SerialPort::do_write, this, a_msg));
   }
 
   //! close
@@ -92,8 +129,8 @@ public:
 
 private:
 
-    //! Start an asynchronous read, which will call read_complete when the read completes,
-    //! or fails.
+  //! Start an asynchronous read, which will call read_complete when the read completes,
+  //! or fails.
   void read_start(void)
   {
     // Start an asynchronous read and call read_complete when it completes or fails
@@ -111,15 +148,16 @@ private:
       {
         // read completed, so process the data
         std::cout.write(m_read_data, bytes_transferred); // echo to standard output
+        std::cout << std::flush;
         read_start(); // start waiting for another asynchronous read again
       }
     else
-    {
-      do_close(error);
-    }
+      {
+        do_close(error);
+      }
   }
 
-    //! Close the socket, due to error.
+  //! Close the socket, due to error.
   void do_close(const boost::system::error_code& error)
   {
     // something has gone wrong, so close the socket & make this object inactive

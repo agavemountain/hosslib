@@ -4,7 +4,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void backtrace_handler(int sig) {
+void backtrace_handler(int sig)
+{
   void *array[10];
   char **strings;
   size_t size;
@@ -32,7 +33,8 @@ void backtrace_handler(int sig) {
   exit(1);
 }
 
-void register_backtrace_handler() {
+void register_backtrace_handler()
+{
   signal(SIGSEGV, backtrace_handler);   // install our handler
 }
 

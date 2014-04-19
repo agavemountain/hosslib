@@ -13,25 +13,25 @@
     @code
     This code is UNSTABLE and in active development.  Use at your own risk.
     @endcode
- 
+
     This library contains a collection of classes used by the Hardware Open Source System (HOSS) project.
-    It includes low level APIs and foundational classes to communicate with hardware devices and 
+    It includes low level APIs and foundational classes to communicate with hardware devices and
     instruments such as multimeters, oscilloscopes, etc.
- 
-    \note Given the severe lack of open source packages for electronics hardware development available 
-          on the Mac, I decided on a "Mac first" development philosophy. As a result, this library is 
+
+    \note Given the severe lack of open source packages for electronics hardware development available
+          on the Mac, I decided on a "Mac first" development philosophy. As a result, this library is
           coded on Mac OS X first, then Linux and when time allows Windows.
-	
+
     @section supported SUPPORTED HARDWARE
- 
+
     The following hardware/protocols are supported:
- 
+
     - RS-232 serial
     - Bus Pirate
 
     @section requires REQUIREMENTS
 
-    Although this library is foundational in nature, it does require other libraries and packages to be installed 
+    Although this library is foundational in nature, it does require other libraries and packages to be installed
     prior to building.  To build this software you will need several packages pre-installed:
 
     -# CMake. Install CMake for your platform.
@@ -40,9 +40,9 @@
     -# git. This is for obvious reasons
 
     @section install INSTALLING
- 
+
     To build hosslib:
- 
+
     @code
     mkdir build
     cd build
@@ -52,7 +52,7 @@
     ctest           # to execute unit tests
     make install    # to install
     @endcode
- 
+
     @section contrib CONTRIBUTIONS
 
     - none (yet)
@@ -86,24 +86,28 @@
 #define _HOSSLIB_HPP_
 
 //! Hardware Open Source System (HOSS) Namespace.
-namespace hoss {
-    
-    //! Network and Communications Namespace.
-    namespace net {
-        
-    }
-    
-    //! Instruments and Measurement Namespace.
-    namespace instruments {
-        
-    }
-    
-    //! Operating System Specific Namespace.
-    namespace os {
-        
-    }
+namespace hoss
+{
+
+//! Network and Communications Namespace.
+namespace net
+{
+
 }
 
-#endif 
+//! Instruments and Measurement Namespace.
+namespace instruments
+{
+
+}
+
+//! Operating System Specific Namespace.
+namespace os
+{
+
+}
+}
+
+#endif
 
 
