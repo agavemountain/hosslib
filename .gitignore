@@ -1,6 +1,6 @@
 # C++ objects and libs
 build/
-
+*.orig
 *.slo
 *.lo
 *.o
