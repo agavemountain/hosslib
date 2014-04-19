@@ -7,6 +7,8 @@ namespace hoss {
 //! Operating System specific namespace
 namespace os {
 
+//! @brief Environment variables class
+//!
 //! Environment Variables
 //!
 //! This class wraps the code necessary to get and set environment

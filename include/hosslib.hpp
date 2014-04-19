@@ -85,6 +85,25 @@
 #ifndef _HOSSLIB_HPP_
 #define _HOSSLIB_HPP_
 
+//! Hardware Open Source System (HOSS) Namespace.
+namespace hoss {
+    
+    //! Network and Communications Namespace.
+    namespace net {
+        
+    }
+    
+    //! Instruments and Measurement Namespace.
+    namespace instruments {
+        
+    }
+    
+    //! Operating System Specific Namespace.
+    namespace os {
+        
+    }
+}
+
 #endif 
 
 

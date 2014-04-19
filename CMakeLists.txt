@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.6)
 # 
 # find boost libraries and headers.
 #
-FIND_PACKAGE( Boost 1.40 COMPONENTS program_options filesystem system REQUIRED )
+FIND_PACKAGE( Boost 1.40 COMPONENTS program_options filesystem system thread REQUIRED )
 INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
 LINK_DIRECTORIES(${Boost_LIBRARY_DIRS})
 message( "BOOST: ${Boost_LIBRARY_DIRS}")
@@ -33,11 +33,15 @@ add_library(hosslib SHARED
     
 INSTALL_FILES( . .so hosslib )
 
+add_executable ( buspirate unittests/buspirate.cpp )
+add_executable ( comserial unittests/comserial.cpp )
 #add_executable ( launch unittests/launch.cpp )
 
 add_executable ( hosslibtest unittests/cppunit-test-main.cpp
                  unittests/test-environment.cpp
                 )
 target_link_libraries( hosslibtest hosslib cppunit )
+target_link_libraries( buspirate hosslib ${Boost_LIBRARIES}) 
+target_link_libraries( comserial hosslib ${Boost_LIBRARIES}) 
 #target_link_libraries( launch hosslib  ${Boost_LIBRARIES})
 add_test( hosslibtest hosslibtest)     
