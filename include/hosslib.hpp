@@ -10,15 +10,32 @@
 
     @section intro INTRODUCTION
 
-	This library contains a collection of classes used by the HOSS project.
+    @code
+    This code is UNSTABLE and in active development.  Use at your own risk.
+    @endcode
+ 
+    This library contains a collection of classes used by the Hardware Open Source System (HOSS) project.
+    It includes low level APIs and foundational classes to communicate with hardware devices and 
+    instruments such as multimeters, oscilloscopes, etc.
+ 
+    \note Given the severe lack of open source packages for electronics hardware development available 
+          on the Mac, I decided on a "Mac first" development philosophy. As a result, this library is 
+          coded on Mac OS X first, then Linux and when time allows Windows.
 	
+    @section supported SUPPORTED HARDWARE
+ 
+    The following hardware/protocols are supported:
+ 
+    - RS-232 serial
+    - Bus Pirate
 
     @section requires REQUIREMENTS
 
-    To build this software you will need several packages pre-installed:
+    Although this library is foundational in nature, it does require other libraries and packages to be installed 
+    prior to building.  To build this software you will need several packages pre-installed:
 
     -# CMake. Install CMake for your platform.
-    -# Boost.  This library relies on Boost::ASIO and other boost libraries.
+    -# Boost.  This library relies on boost::ASIO, boost::system, boost::filesystem, boost::program_options, and other boost libraries.
     -# Doxygen.  This is used to generate the API documentation.
     -# git. This is for obvious reasons
 
@@ -38,7 +55,7 @@
  
     @section contrib CONTRIBUTIONS
 
-    - none
+    - none (yet)
 
     @section license MIT LICENCE
 
