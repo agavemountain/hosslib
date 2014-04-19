@@ -33,11 +33,11 @@ add_library(hosslib SHARED
     
 INSTALL_FILES( . .so hosslib )
 
-add_executable ( launch unittests/launch.cpp )
+#add_executable ( launch unittests/launch.cpp )
 
 add_executable ( hosslibtest unittests/cppunit-test-main.cpp
                  unittests/test-environment.cpp
                 )
 target_link_libraries( hosslibtest hosslib cppunit )
-target_link_libraries( launch hosslib  ${Boost_LIBRARIES})
+#target_link_libraries( launch hosslib  ${Boost_LIBRARIES})
 add_test( hosslibtest hosslibtest)     
